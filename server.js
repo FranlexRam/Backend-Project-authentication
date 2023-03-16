@@ -1,3 +1,4 @@
+const userRoutes = require('./routes/userRoutes')
 const mongoose = require('mongoose')
 const express = require('express')
 const app = express()
@@ -24,4 +25,4 @@ mongoose.connect(
 //mw
 
 //routes
-
+app.use(userRoutes)
