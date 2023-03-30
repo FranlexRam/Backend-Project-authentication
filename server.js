@@ -23,6 +23,8 @@ mongoose.connect(
 
 
 //mw
+app.use(express.json())
+express.urlencoded({ extended: true })
 
 //routes
 app.use(userRoutes)

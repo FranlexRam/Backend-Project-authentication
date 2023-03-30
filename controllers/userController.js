@@ -1,3 +1,4 @@
+const sendMail = require('../helpers/sendMail')
 const createToken = require('../helpers/createToken');
 const validateEmail = require('../helpers/validateEmail');
 const bcrypt = require('bcryptjs');
@@ -30,8 +31,13 @@ const userController = {
             const newUser = {name, email, password: hashPassword}
             const activation_token = createToken.activation(newUser)
 
-            // send email
+            // send emailconst
+            const url = `http://localhost:3000/api/auth/activate/${activation_token}`
+            sendMail.sendEmailRegister(email, url, "Verify your email")
+
             // registration success
+            res.status(200).json({msg: "Welcome! Please check Your email."})
+
         } catch (err) {
             res.status(500).json({msg: err.message})
         }
