@@ -2,7 +2,9 @@ const sendMail = require('../helpers/sendMail')
 const createToken = require('../helpers/createToken');
 const validateEmail = require('../helpers/validateEmail');
 const bcrypt = require('bcryptjs');
-const User = require('../models/userModel')
+const jwt = require('jsonwebtoken');
+const User = require('../models/userModel');
+const { activation } = require('../helpers/createToken');
 
 const userController = {
     register: async (req, res)=>{
@@ -41,7 +43,33 @@ const userController = {
         } catch (err) {
             res.status(500).json({msg: err.message})
         }
+    },
+    activate: async(req, res) =>{
+        try {
+          //get token
+            const {activation_token} = req.body;
+
+          //verify token
+            const user = jwt.verify(activation_token, process.env.ACTIVATION_TOKEN)
+            const {name, email, password} = user
+
+          //check user
+            const check = await User.findOne({email})
+            if(check) return res.status(400).json({msg: "This email is already registered."})
+
+          //add user
+            const newUser = new User({
+                name, email, password
+            })
+            await newUser.save()
+
+          //activation success 
+            res.status(200).json({msg: 'Your account has been activated, You can now sign in.'})
+          
+        } catch (err) {
+            res.status(500).json({msg: err.message})
+        }
     }
-}
+};
 
 module.exports = userController;
