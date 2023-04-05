@@ -143,9 +143,21 @@ const userController = {
     reset: async (req, res) => {
         try {
             //get password
+            const {password} = req.body;
+
             //hash password
+            const salt = await bcrypt.genSalt();
+            const hashPassword = await bcrypt.hash(password, salt);
+
             //update password
+            await User.findByIdAndUpdate (
+                {_id: req.user.id},
+                {password: hashPassword}
+            ),
+
             //reset success
+                res.status(200).json({msg: "Password was updated successfully."})
+
         } catch (err) {
             res.status(500).json({msg: err.message});
         }
