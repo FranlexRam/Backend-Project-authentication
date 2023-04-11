@@ -9,7 +9,26 @@ cloudinary.config({
 const uploadController = {
     uploadAvatar: async (req, res) => {
         try {
-            
+            //get file
+            const file = req.file
+
+            //upload to cloudinary
+            cloudinary.v2.uploader.upload(
+                file.path,
+                {
+                    folder: "avatar",
+                    width: 150,
+                    height: 150,
+                    crop: 'fill'
+                }, (err, result) => {
+                    if(err) throw err;
+                    fs.unlinkSync(file.path);
+                    res.status(200).json({
+                        msg: "Uploaded successfully.",
+                        url: result.secure_url,
+                    });
+                }
+            );
         } catch (err) {
             res.status(500).json({msg: err.message});
         }
