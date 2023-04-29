@@ -152,7 +152,7 @@ const sendEmailReset = (to, url, text, name)=>{
             href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
             rel="stylesheet"
           />
-          <title>Passioncorners | Account Activation</title>
+          <title>Franlex To Do App || Reset password</title>
           <style>
             body {
               background-color: #333333;
@@ -168,6 +168,14 @@ const sendEmailReset = (to, url, text, name)=>{
               height: 100%;
               margin: 0 auto;
             }
+
+            .img-container {
+                max-width: 200px;
+                width: 100%;
+                height: 100%;
+                margin: 0 auto;
+            }
+
             .wrapper {
               padding: 0 15px;
             }
@@ -202,12 +210,13 @@ const sendEmailReset = (to, url, text, name)=>{
           <div class="container">
             <div class="wrapper">
               <div class="card">
-                <h1><span>Hey</span> ${name}</h1>
-                <p>Please click the button below to reset your password. 🙂</p>
+                <img src="cid:shuttle" alt="logo" class="img-container">
+                <h1><span>Hey</span> ${name}, I hope You're well.</h1>
+                <p>Please click the button below to reset your password.</p>
                 <a href=${url}><button>${text}</button></a>
                 <p class="spacing">
                   If the button above does not work, please navigate to the link
-                  provided below 👇🏻
+                  provided below.
                 </p>
                 <div>${url}</div>
               </div>

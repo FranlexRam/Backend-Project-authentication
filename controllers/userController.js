@@ -79,7 +79,7 @@ const userController = {
 
            //check email
             const user = await User.findOne({email})
-            if(!user) return res.status(400).json({msg: "This email is not registeredin our system."})
+            if(!user) return res.status(400).json({msg: "This email is not registered in our system."})
 
            //check password
             const isMatch = await bcrypt.compare(password, user.password)
@@ -170,7 +170,7 @@ const userController = {
             const user = await User.findById(req.user.id).select("-password")
 
             //return user
-            res.status(200).json({ user });
+            res.status(200).json(user);
         } catch (err) {
             res.status(500).json({msg: err.message});
         }
@@ -244,7 +244,7 @@ const userController = {
                 await newUser.save()
                 // sign in the user
                 //refresh token
-                const rf_token = createToken.refresh({id: user._id})
+                const rf_token = createToken.refresh({id: newUser._id})
                 // store cookie
                 res.cookie("_apprftoken", rf_token, {
                     httpOnly: true,
