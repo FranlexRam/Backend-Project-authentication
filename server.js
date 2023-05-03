@@ -1,4 +1,5 @@
-var morgan = require('morgan')
+var morgan = require('morgan');
+var cors = require('cors');
 const cookieParser = require('cookie-parser');
 const userRoutes = require('./routes/userRoutes');
 const uploadRoutes = require("./routes/uploadRoutes");
@@ -25,6 +26,7 @@ mongoose.connect(
 );
 
 //mw
+app.use(cors())
 app.use(morgan('dev'))
 app.use(express.json())
 express.urlencoded({ extended: true })
