@@ -35,7 +35,7 @@ const userController = {
             const newUser = {name, email, password: hashPassword}
             const activation_token = createToken.activations(newUser)
 
-            // send emailconst
+            // send email
             const url = `http://localhost:3000/api/auth/activate/${activation_token}`
             sendMail.sendEmailRegister(email, url, "Verify your email")
 
