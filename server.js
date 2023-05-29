@@ -1,5 +1,4 @@
-const cors = require('cors');
-var morgan = require('morgan');
+var morgan = require('morgan')
 const cookieParser = require('cookie-parser');
 const userRoutes = require('./routes/userRoutes');
 const uploadRoutes = require("./routes/uploadRoutes");

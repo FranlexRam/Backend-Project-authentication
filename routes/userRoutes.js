@@ -13,5 +13,8 @@ route.get('/api/auth/user', auth, userController.info);
 route.patch('/api/auth/user_update', auth, userController.update);
 route.get('/api/auth/signout', userController.signout);
 route.post('/api/auth/google_signing', userController.google);
+// route.get('/api/health', (req,res)=> {
+//     res.send('successfull API response')
+// });
 
 module.exports = route;
