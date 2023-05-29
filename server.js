@@ -1,4 +1,5 @@
-var morgan = require('morgan')
+const cors = require('cors');
+var morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const userRoutes = require('./routes/userRoutes');
 const uploadRoutes = require("./routes/uploadRoutes");
@@ -15,6 +16,7 @@ mongoose.connect(
         useUnifiedTopology: true,
     },
     (err) => {
+        if (err) throw err;
         console.log("db connected");
 
         const PORT = 8000;
@@ -25,6 +27,7 @@ mongoose.connect(
 );
 
 //mw
+app.use(cors())
 app.use(morgan('dev'))
 app.use(express.json())
 express.urlencoded({ extended: true })

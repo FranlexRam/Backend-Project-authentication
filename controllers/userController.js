@@ -127,7 +127,7 @@ const userController = {
             const user = await User.findOne({email})
             if(!user) return res.status(400).json({msg: "This email is not registered in our system."});
 
-            //create access tokem
+            //create access token
             const ac_token = createToken.access({id: user.id});
 
             //send email
