@@ -5,7 +5,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 const { activation } = require('../helpers/createToken');
-const {google} = require('googleapis')
+const {google} = require('googleapis');
+const Todo = require('../models/Todo');
 const {OAuth2} = google.auth;
 
 const userController = {
@@ -87,12 +88,13 @@ const userController = {
 
            //refresh token
             const rf_token = createToken.refresh({id: user._id})
+            console.log(rf_token);
             res.cookie("_apprftoken", rf_token, {
                 httpOnly: true,
                 path: "/api/auth/access",
                 maxAge: 24 * 60 * 60 * 1000 // 24h
             })
-
+            console.log(res.cookies);
            //signing success 
            res.status(200).json({ msg: "Signing success"});
         } catch (err) {
@@ -256,6 +258,23 @@ const userController = {
             }
         } catch (err) {
             res.status(500).json({msg: err.message});
+        }
+    },
+    getTodosController: async (req, res)=>{
+        try{
+            // const user = req.user;
+            const todos = await Todo.find({user:req.body.user_id});
+            res.status(200).json({
+                success: true,
+                message: "successfully retrieved",
+                todos
+            })        
+        }
+        catch(err){
+            res.status(401).json({
+                success: false,
+                message: err.message,
+            })
         }
     }
 };
