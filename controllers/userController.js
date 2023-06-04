@@ -234,27 +234,27 @@ const userController = {
                     path: "/api/auth/access",
                     maxAge: 24 * 60 * 60 * 1000 // 24hrs
                 })
-                res.status(200).json({msg: "singin with Google success."})
+                res.status(200).json({msg: "Signin with Google success."})
             } else {
                 //new user / create user
                 const password = email + process.env.G_CLIENT_ID
                 const salt = await bcrypt.genSalt()
                 const hashPassword = await bcrypt.hash(password, salt)
                 const newUser = new User({
-                    name, email, password: hashPassword, avatar: picture
+                    name, email, password: hashPassword//, avatar: picture
                 })
                 await newUser.save()
                 // sign in the user
-                //refresh token
-                const rf_token = createToken.refresh({id: newUser._id})
-                // store cookie
-                res.cookie("_apprftoken", rf_token, {
-                    httpOnly: true,
-                    path: "/api/auth/access",
-                    maxAge: 24 * 60 * 60 * 1000 // 24hrs
-                })
-                //success
-                res.status(200).json({msg: "Signing with Google success."})
+                    //refresh token
+                    const rf_token = createToken.refresh({id: newUser._id})
+                    // store cookie
+                    res.cookie("_apprftoken", rf_token, {
+                        httpOnly: true,
+                        path: "/api/auth/access",
+                        maxAge: 24 * 60 * 60 * 1000 // 24hrs
+                    })
+                    //success
+                    res.status(200).json({msg: "Signing with Google success."})
             }
         } catch (err) {
             res.status(500).json({msg: err.message});

@@ -16,7 +16,7 @@ const userSchema = new Schema(
         password:{
             type: String,
             required: [true, "Please enter your password"],
-            min: 6
+            min: 6,
         },
         avatar:{
             type: String,

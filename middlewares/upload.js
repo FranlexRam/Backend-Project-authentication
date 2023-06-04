@@ -15,17 +15,17 @@ module.exports = (req, res, next) => {
         !req.file.mimetype.includes('png')
     ) {
         //remove file
-        fs.unlinkSync(image)
-        return res.status(400).json({msg: "This file is not supported."})
+        fs.unlinkSync(image);
+        return res.status(400).json({msg: "This file is not supported."});
     }
 
     //file size
     if(req.file.size > 1024 * 1024) {
         //remove file
-        fs.unlinkSync(image)
-        return res.status(400).json({msg: "This file is too large (Max: 1MB)"})
+        fs.unlinkSync(image);
+        return res.status(400).json({msg: "This file is too large (Max: 1MB)"});
     }
 
     //success
-    next()
-}
+    next();
+};
